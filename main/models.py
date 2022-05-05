@@ -1,4 +1,5 @@
 from django.db import models
+from orderable.models import Orderable
 
 
 class GolfCourse(models.Model):
@@ -14,7 +15,7 @@ class GolfCard(models.Model):
     end_time = models.DateTimeField(null=True)
 
 
-class GolfHole(models.Model):
+class GolfHole(Orderable):
     course = models.ForeignKey(GolfCourse, on_delete=models.CASCADE)
     hole_number = models.IntegerField()
     hole_name = models.CharField(max_length=100)
