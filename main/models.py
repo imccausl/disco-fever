@@ -12,7 +12,7 @@ class GolfCard(models.Model):
     course = models.ForeignKey(GolfCourse, on_delete=models.CASCADE)
     invite_code = models.CharField(max_length=5)
     start_time = models.DateTimeField(auto_now_add=True)
-    end_time = models.DateTimeField(null=True)
+    end_time = models.DateTimeField(null=True, blank=True)
 
 
 class GolfHole(Orderable):
