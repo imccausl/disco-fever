@@ -10,8 +10,8 @@ class GolfCourse(models.Model):
 class GolfCard(models.Model):
     course = models.ForeignKey(GolfCourse, on_delete=models.CASCADE)
     invite_code = models.CharField(max_length=5)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    start_time = models.DateTimeField(auto_now_add=True)
+    end_time = models.DateTimeField(null=True)
 
 
 class GolfHole(models.Model):
@@ -19,9 +19,9 @@ class GolfHole(models.Model):
     hole_number = models.IntegerField()
     hole_name = models.CharField(max_length=100)
     par = models.IntegerField()
-    physical_length = models.IntegerField()
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    physical_length = models.IntegerField(null=True)
+    lat = models.DecimalField(max_digits=10, decimal_places=8, null=True)
+    lng = models.DecimalField(max_digits=11, decimal_places=8, null=True)
 
 
 class HoleScore(models.Model):
