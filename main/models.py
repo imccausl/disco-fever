@@ -1,6 +1,6 @@
 from django.db import models
 from orderable.models import Orderable
-
+from  django.contrib.auth.models import User
 
 class GolfCourse(models.Model):
     name = models.CharField(max_length=1000)
@@ -34,6 +34,7 @@ class GolfHole(Orderable):
 
 
 class HoleScore(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     card = models.ForeignKey(GolfCard, on_delete=models.CASCADE)
     hole = models.ForeignKey(GolfHole, on_delete=models.CASCADE)
     stroke_count = models.IntegerField()
