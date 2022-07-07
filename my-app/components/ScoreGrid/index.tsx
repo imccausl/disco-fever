@@ -54,9 +54,6 @@ const CourseHoleTable: React.FC<CourseHoleTableProps> = ({holes, scores}) => {
                         {holePars}
                     </Tr>
                 </Thead>
-                <Tbody>
-
-                </Tbody>
             </Table>
         </TableContainer>
     )
