@@ -1,6 +1,8 @@
 asgiref==3.5.0
 Django==4.0.4
 django-orderable==6.1.1
+djangorestframework==3.13.1
 protobuf==3.19.3
+pytz==2022.1
 six==1.16.0
 sqlparse==0.4.2
