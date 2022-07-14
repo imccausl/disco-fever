@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     "orderable",
     "main",
     "rest_framework",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -74,6 +76,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "disco_fever.wsgi.application"
 
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases

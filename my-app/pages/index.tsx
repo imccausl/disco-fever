@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import type { NextPage } from 'next'
 import Head from 'next/head'
 // import Image from 'next/image'
@@ -5,7 +6,37 @@ import styles from '../styles/Home.module.css'
 import ScoreGrid from '../components/ScoreGrid'
 import SignupForm from '../components/Form/SignupForm'
 
+const courseUrl = 'http://localhost:8000/api/course/'
+const getCourses = () => {
+  fetch(courseUrl)
+    .then(response => response.json())
+    .then(data => console.log(data));
+}
+
+const postCourse = () => {
+  const data = {
+    name: 'my 3000 course',
+    lat: -20.88644,
+    lng: 163.19727,
+  }
+
+  // Default options are marked with *
+  fetch(courseUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+}
+
 const Home: NextPage = () => {
+
+  useEffect(() => {
+    // get all the courses!!
+    getCourses();
+  });
+
   return (
     <div className={styles.container}>
       <Head>
@@ -18,6 +49,7 @@ const Home: NextPage = () => {
         <ScoreGrid />
         test
         <SignupForm />
+        <button onClick={() => postCourse()}>click mee</button>
       </main>
 
     </div>
