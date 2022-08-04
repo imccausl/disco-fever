@@ -1,3 +1,5 @@
+from django.http import JsonResponse
+
 from rest_framework import viewsets
 from .serializers import (
     GolfCourseSerializer,
@@ -26,3 +28,16 @@ class GolfCardViews(viewsets.ModelViewSet):
 class HoleScoreViews(viewsets.ModelViewSet):
     serializer_class = HoleScoreSerializer
     queryset = HoleScore.objects.all()
+
+
+def get_token(request):
+    """
+    Return the CSRF token that Django has created for this session.
+    It's intended to be used in NextJs to run a successful POST request.
+
+        Returns:
+                csrfToken (str): The CSRF token
+    """
+    from django.middleware.csrf import get_token
+
+    return JsonResponse({"csrfToken": get_token(request)})

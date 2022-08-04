@@ -12,4 +12,5 @@ router.register(r"hole/score", api.HoleScoreViews)
 urlpatterns = [
     path("home/", views.home),
     path("api/", include(router.urls)),
+    path("api/get-token/", api.get_token),
 ]

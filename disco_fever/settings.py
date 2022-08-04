@@ -61,6 +61,7 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             BASE_DIR / "my-app" / "out",
+            BASE_DIR / "templates",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -77,7 +78,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "disco_fever.wsgi.application"
 
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
-
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
