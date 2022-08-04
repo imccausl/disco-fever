@@ -55,7 +55,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "disco_fever.urls"
-
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -77,6 +76,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "disco_fever.wsgi.application"
 
+CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
 CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
 # Database
