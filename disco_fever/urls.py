@@ -17,9 +17,8 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include, re_path
 
-from main.views import AdminLogin
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("main.urls")),
+    path("", include("django.contrib.auth.urls")),
 ]
