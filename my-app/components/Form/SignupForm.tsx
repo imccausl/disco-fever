@@ -1,4 +1,10 @@
 import { FormControl, FormLabel, Input } from '@chakra-ui/react'
+import {
+    Alert,
+    AlertIcon,
+    AlertTitle,
+    AlertDescription,
+} from '@chakra-ui/react'
 import { Box } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/react'
 import React, { useState, useEffect } from 'react';
@@ -16,6 +22,7 @@ const SignupForm: React.FC = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [loginStatus, setLoginStatus] = useState('');
 
     const onSubmit = () => {
         const data = {
@@ -37,7 +44,20 @@ const SignupForm: React.FC = () => {
             url: loginUrl,
             data: new URLSearchParams(data),
             headers,
-        });
+            validateStatus: (status) => {
+                console.log(status)
+                return status >= 200 && status <= 302; // default
+            }
+        })
+        .then(function(res) {
+            setLoginStatus('success')
+            setTimeout(() => {
+                window.location.assign("/home/")
+            })
+        })
+        .catch(function(error) {
+            setLoginStatus('error')
+        })
     }
 
 
@@ -52,6 +72,19 @@ const SignupForm: React.FC = () => {
                 <Input onChange={(event) => setPassword(event.currentTarget.value)} name="password" id='password' type="password" />
             </FormControl>
             <Button onClick={onSubmit} colorScheme='blue'>Log In</Button>
+            { loginStatus === 'error' ? (
+                <Alert status='error' style={{ marginTop: '10px' }}>
+                    <AlertIcon />
+                    <AlertTitle>Login failed</AlertTitle>
+                    <AlertDescription>Please check your credentials and try again. The fields are case-sensitive.</AlertDescription>
+                </Alert>
+            ) : loginStatus === 'success' && (
+                <Alert status='success' style={{ marginTop: '10px' }}>
+                    <AlertIcon />
+                    <AlertTitle>Login successful</AlertTitle>
+                    <AlertDescription>Redirecting you to your home.</AlertDescription>
+                </Alert>
+            )}
         </Box>
     )
 };
