@@ -48,11 +48,11 @@ const SignupForm: React.FC = () => {
         <Box maxW='md' borderWidth='1px' borderRadius='lg' overflow='hidden' p="10px" bg="#fff">
             <FormControl isRequired pb="3">
                 <FormLabel htmlFor='email-address'>Email</FormLabel>
-                <Input onClick={(event) => setUsername(event.currentTarget.value )} name="email" id='email-address' placeholder='joe@gmail.com' type="email" />
+                <Input onChange={(event) => setUsername(event.currentTarget.value )} name="email" id='email-address' placeholder='joe@gmail.com' type="email" />
             </FormControl>
             <FormControl isRequired pb="3">
                 <FormLabel htmlFor='password'>Password</FormLabel>
-                <Input onClick={(event) => setPassword(event.currentTarget.value)} name="password" id='password' type="password" />
+                <Input onChange={(event) => setPassword(event.currentTarget.value)} name="password" id='password' type="password" />
             </FormControl>
             <Button onClick={onSubmit} colorScheme='blue'>Log In</Button>
         </Box>
