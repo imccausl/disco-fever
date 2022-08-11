@@ -24,11 +24,8 @@ const SignupForm: React.FC = () => {
         }
 
         const headers: {
-            'Content-Type': string,
             'X-CSRFToken'?: string,
-        } = {
-         'Content-Type': 'application/json',
-        }
+        } = {}
 
         if (csrftoken) {
             headers['X-CSRFToken'] = csrftoken
@@ -38,7 +35,7 @@ const SignupForm: React.FC = () => {
         axios({
             method: 'post',
             url: loginUrl,
-            data,
+            data: new URLSearchParams(data),
             headers,
         });
     }
