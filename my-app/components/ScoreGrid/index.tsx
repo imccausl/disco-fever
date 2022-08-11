@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableContainer } from '@chakra-ui/react'
 import GridNumber from './GridNumber'
 import { mockHoleTableData } from './mockData'
-
+import { GridNumberVariants } from './constants'
 export type Hole = {holeName: string, distance: number, par: number}
 type CourseHoleTableProps = {
     holes: Array<Hole>
@@ -54,6 +54,13 @@ const CourseHoleTable: React.FC<CourseHoleTableProps> = ({holes, scores}) => {
                         {holePars}
                     </Tr>
                 </Thead>
+                <Tbody>
+                    <Tr>
+                    <GridNumber>
+                        {8}
+                    </GridNumber>
+                    </Tr>
+                </Tbody>
             </Table>
         </TableContainer>
     )
