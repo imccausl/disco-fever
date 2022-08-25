@@ -11,7 +11,7 @@ import React, { useState, useEffect } from 'react';
 import { useCsrfToken } from '../../hooks/useCsrfToken';
 import axios from 'axios'
 
-const loginUrl = 'http://localhost:8000/login/'
+const loginUrl = '/login/'
 
 const SignupForm: React.FC = () => {
     const csrftoken = useCsrfToken()
