@@ -24,7 +24,16 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2.3.1
+        with:
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            known-hosts: 'will-be-added-in-next-step'
 
+      - name: Add known host
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+        
       - name: GitHub Action for DigitalOcean - doctl
         # You may pin to the exact commit or the version.
         # uses: digitalocean/action-doctl@1636b0e7124fef73b06321085ccfb34770ac31b3
