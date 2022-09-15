@@ -21,10 +21,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-      
+    steps:  
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2.3.1
         with:
@@ -40,8 +37,6 @@ jobs:
            host: ${{ secrets.HOST_IP }}
            username: root
            commands: |
-              echo ssh into droplet
-              doctl compute ssh disco-sauce
               echo cd into the project directory
               cd disco-app/disco-fever
               echo pull the changes
