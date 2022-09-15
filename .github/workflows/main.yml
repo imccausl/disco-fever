@@ -1,10 +1,6 @@
-# This is a basic workflow to help you get started with Actions
-    
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
@@ -13,15 +9,15 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:  
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2.4.2
+      - name: Build Frontend
+        run: cd my-app && yarn build
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2.3.1
         with:
@@ -31,17 +27,17 @@ jobs:
       - name: Add known host
         run: ssh-keyscan -H ${{ secrets.HOST_IP }} >> ~/.ssh/known_hosts
         
-      - name: Deploy all the things
+      - name: Copy Files
+        uses: easingthemes/ssh-deploy@v2.2.11
+        with:
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            REMOTE_HOST: ${{ secrets.HOST_IP }}
+            REMOTE_USER: root
+            TARGET: '~/disco-app/disco-fever'
+            
+      - name: Restart Server
         uses: arthurvanl/action-exec-ssh@v2.0.7
         with:
            host: ${{ secrets.HOST_IP }}
            username: root
-           commands: |
-              echo cd into the project directory
-              cd disco-app/disco-fever
-              echo pull the changes
-              git pull
-              echo build the frontend
-              cd my-app && yarn build
-              echo restart gnunicorn
-              systemctl restart gunicorn
+           commands: systemctl restart gunicorn
