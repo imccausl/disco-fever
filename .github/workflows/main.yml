@@ -33,9 +33,10 @@ jobs:
         uses: easingthemes/ssh-deploy@v2.2.11
         with:
             SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            ARGS: -avz
             REMOTE_HOST: ${{ secrets.HOST_IP }}
             REMOTE_USER: root
-            TARGET: '~/disco-app/disco-fever'
+            TARGET: /root/disco-app/disco-fever/
             
       - name: Restart Server
         uses: arthurvanl/action-exec-ssh@v2.0.7
