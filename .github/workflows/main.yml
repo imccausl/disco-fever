@@ -37,6 +37,7 @@ jobs:
             REMOTE_HOST: ${{ secrets.HOST_IP }}
             REMOTE_USER: root
             TARGET: /root/disco-app/disco-fever/
+            EXCLUDE: .git/
             
       - name: Restart Server
         uses: arthurvanl/action-exec-ssh@v2.0.7
