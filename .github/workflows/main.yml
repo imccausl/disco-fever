@@ -19,6 +19,9 @@ jobs:
         
       - name: Build Frontend
         run: cd my-app && yarn install && yarn build
+
+      - name: Collect Static Files
+        run: /root/disco-app/venv/bin/python /root/disco-app/venv/bin/django-admin collectstatic
         
       - name: Copy Files
         uses: easingthemes/ssh-deploy@v2.2.11
