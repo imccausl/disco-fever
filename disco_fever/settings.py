@@ -130,6 +130,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "my-app" / "out",
 ]
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
