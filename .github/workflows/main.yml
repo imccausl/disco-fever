@@ -20,15 +20,6 @@ jobs:
       - name: Build Frontend
         run: cd my-app && yarn install && yarn build
         
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2.3.1
-        with:
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            known_hosts: 'will-be-added-in-next-step'
-
-      - name: Add known host
-        run: ssh-keyscan -H ${{ secrets.HOST_IP }} >> ~/.ssh/known_hosts
-        
       - name: Copy Files
         uses: easingthemes/ssh-deploy@v2.2.11
         with:
@@ -40,8 +31,9 @@ jobs:
             EXCLUDE: .git/
             
       - name: Restart Server
-        uses: arthurvanl/action-exec-ssh@v2.0.7
+        uses: garygrossgarten/github-action-ssh@release
         with:
            host: ${{ secrets.HOST_IP }}
            username: root
-           commands: systemctl restart gunicorn
+           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+           command: systemctl restart gunicorn
