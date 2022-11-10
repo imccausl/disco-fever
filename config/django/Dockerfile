@@ -15,3 +15,5 @@ RUN pip install -r requirements.txt
 
 # copy project
 COPY . .
+
+CMD ["./venv/bin/gunicorn", "--workers", "3", "disco_fever.wsgi:application",  "--bind",  "0.0.0.0:8000"]
