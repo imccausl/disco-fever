@@ -8,4 +8,4 @@ if [ -z "$CONTAINER_ID" ]; then
     docker stop $CONTAINER_ID
 fi
 
-docker run -d -p 8000:8000 disco_fever:v0.1 --name production_container
+docker run -d -p 8000:8000 disco_fever:v0.1
