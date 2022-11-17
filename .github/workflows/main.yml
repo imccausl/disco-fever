@@ -37,6 +37,7 @@ jobs:
           username: root
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
           command: |
-            docker build . -f /root/disco-app/disco-fever/config/django/Dockerfile -t disco_fever:v0.1
+            cd /root/disco-app/disco-fever
+            docker build . -f config/django/Dockerfile -t disco_fever:v0.1
             docker stop $(docker container ls  | grep 'disco_fever:v0.1' | awk '{print $1}')
             docker run -d -p 8000:8000 disco_fever:v0.1
