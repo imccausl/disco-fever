@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -16,24 +16,27 @@ jobs:
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2.4.2
-        
+
       - name: Build Frontend
         run: cd my-app && yarn install && yarn build
-        
+
       - name: Copy Files
         uses: easingthemes/ssh-deploy@v2.2.11
         with:
-            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-            ARGS: -avz
-            REMOTE_HOST: ${{ secrets.HOST_IP }}
-            REMOTE_USER: root
-            TARGET: /root/disco-app/disco-fever/
-            EXCLUDE: .git/
-            
-      - name: Restart Server
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: -avz
+          REMOTE_HOST: ${{ secrets.HOST_IP }}
+          REMOTE_USER: root
+          TARGET: /root/disco-app/disco-fever/
+          EXCLUDE: .git/
+
+      - name: Build and Restart Server
         uses: garygrossgarten/github-action-ssh@release
         with:
-           host: ${{ secrets.HOST_IP }}
-           username: root
-           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
-           command: systemctl restart gunicorn
+          host: ${{ secrets.HOST_IP }}
+          username: root
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          command: |
+            docker build . -f config/django/Dockerfile -t disco_fever:v0.1
+            docker stop $(docker container ls  | grep 'disco_fever:v0.1' | awk '{print $1}')
+            docker run -p 8000:8000 disco_fever:v0.1
