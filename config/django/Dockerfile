@@ -9,7 +9,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN python -m venv venv
-ENV PATH="/usr/src/app/venv/bin/activate:$PATH"
+ENV PATH="/usr/src/app/venv/:$PATH"
 
 COPY . .
 # install dependencies
