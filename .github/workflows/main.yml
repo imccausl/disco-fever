@@ -21,7 +21,8 @@ jobs:
         with:
           path: ${{ github.workspace }}/my-app/.next/cache
           key: ${{ runner.os }}-frontend-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/**.[jt]s', '**/**.[jt]sx') }}
-          restore-key: ${{ runner.os }}-frontend-${{ hashfiles('**/yarn.lock') }}-
+          restore-keys: |
+            ${{ runner.os }}-frontend-${{ hashfiles('**/yarn.lock') }}-
           
       - name: Build Frontend
         run: cd my-app && yarn install && yarn build
@@ -45,7 +46,7 @@ jobs:
         with:
           name: frontend-artifacts
           path: ${{ github.workspace }}/my-app/.next
-      - run: ls -la ~/my-app
+      - run: ls -la ${{ github.workspace }}/my-app
       
       - name: Copy Files
         uses: easingthemes/ssh-deploy@v2.2.11
