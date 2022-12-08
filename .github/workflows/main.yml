@@ -20,7 +20,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: my-app
-          key: ${{ runner.os }}-{{ hashFiles('my-app/yarn.lock') }}
+          key: ${{ runner.os }}-${{ hashFiles('my-app/yarn.lock') }}
           
       - name: Build Frontend
         run: cd my-app && yarn install && yarn build
