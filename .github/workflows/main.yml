@@ -10,16 +10,25 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-frontend:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2.4.2
-
-      # - name: Build Frontend
-      #   run: cd my-app && yarn install && yarn build
-
+        
+      - name: Cache Frontend Assets
+        uses: actions/cache@v3
+        with:
+          path: my-app
+          key: ${{ runner.os }}-{{ hashFiles('my-app/yarn.lock') }}
+          
+      - name: Build Frontend
+        run: cd my-app && yarn install && yarn build
+        
+  deploy:
+    needs: build-frontend
+    runs-on: ubuntu-latest
+    steps:
       - name: Copy Files
         uses: easingthemes/ssh-deploy@v2.2.11
         with:
