@@ -26,10 +26,27 @@ jobs:
       - name: Build Frontend
         run: cd my-app && yarn install && yarn build
         
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-artifacts
+          path: ${{ github.workspace }}/my-app/.next
+          
+        
   deploy:
     needs: build-frontend
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
     runs-on: ubuntu-latest
     steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: frontend-artifacts
+          path: ${{ github.workspace }}/my-app/.next
+      - run: ls ${( github.workspace }}/my-app -la
+      
       - name: Copy Files
         uses: easingthemes/ssh-deploy@v2.2.11
         with:
