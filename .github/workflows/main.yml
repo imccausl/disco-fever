@@ -19,8 +19,9 @@ jobs:
       - name: Cache Frontend Assets
         uses: actions/cache@v3
         with:
-          path: my-app
-          key: ${{ runner.os }}-${{ hashFiles('my-app/yarn.lock') }}
+          path: ${{ github.workspace }}/my-app/.next/cache
+          key: ${{ runner.os }}-frontend-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/**.[jt]s', '**/**.[jt]sx') }}
+          restore-key: ${{ runner.os }}-frontend-${{ hashfiles('**/yarn.lock') }}-
           
       - name: Build Frontend
         run: cd my-app && yarn install && yarn build
