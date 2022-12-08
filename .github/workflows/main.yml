@@ -45,7 +45,7 @@ jobs:
         with:
           name: frontend-artifacts
           path: ${{ github.workspace }}/my-app/.next
-      - run: ls ${( github.workspace }}/my-app -la
+      - run: ls -la ~/my-app
       
       - name: Copy Files
         uses: easingthemes/ssh-deploy@v2.2.11
