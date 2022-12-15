@@ -3,7 +3,7 @@ name: CI
 concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
-      
+
 on:
   push:
     branches: ["main"]
@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2.4.2
-        
+
       - name: Cache Frontend Assets
         uses: actions/cache@v3
         with:
@@ -27,17 +27,16 @@ jobs:
           key: ${{ runner.os }}-frontend-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/**.[jt]s', '**/**.[jt]sx') }}
           restore-keys: |
             ${{ runner.os }}-frontend-${{ hashfiles('**/yarn.lock') }}-
-          
+
       - name: Build Frontend
         run: cd my-app && yarn install && yarn build
-        
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: frontend-artifacts
           path: ${{ github.workspace }}/my-app/.next
-          
-        
+
   deploy:
     needs: build-frontend
     runs-on: ubuntu-latest
@@ -47,7 +46,7 @@ jobs:
         with:
           name: frontend-artifacts
           path: ${{ github.workspace }}/my-app/.next
-      
+
       - name: Copy Files
         uses: easingthemes/ssh-deploy@v2.2.11
         with:
