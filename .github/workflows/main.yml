@@ -41,6 +41,9 @@ jobs:
     needs: build-frontend
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2.4.2
+
       - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
