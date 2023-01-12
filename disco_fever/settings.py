@@ -77,8 +77,8 @@ TEMPLATES = [
 WSGI_APPLICATION = "disco_fever.wsgi.application"
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://app.discofever.net"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://app.discofever.net"]
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
