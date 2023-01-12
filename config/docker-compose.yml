@@ -8,8 +8,12 @@ services:
     command: gunicorn --workers 3 disco_fever.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - ../:/usr/src/app
+    env_file:
+      - ./.env.dev
     expose:
       - 8000
+    depends_on:
+      - db
   nginx:
     build: ./nginx
     volumes:
@@ -18,3 +22,14 @@ services:
       - "80:80"
     depends_on:
       - web
+
+  db:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=disco_fever_user
+      - POSTGRES_PASSWORD=disco_fever_password
+      - POSTGRES_DB=disco_fever_dev
+volumes:
+  postgres_data:
