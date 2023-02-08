@@ -1,11 +1,21 @@
 version: '3.8'
 
 services:
+  nextjs:
+    build:
+      context: ../
+      dockerfile: ./config/nextjs/Dockerfile
+    command: yarn dev
+    volumes:
+      - ../:/usr/src/app
+    expose:
+      - 3000
+
   web:
     build:
       context: ../
       dockerfile: ./config/django/Dockerfile
-    command: gunicorn --workers 3 disco_fever.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn --workers 3 disco_fever.wsgi:application --bind 0.0.0.0:8000  --reload
     volumes:
       - ../:/usr/src/app
     env_file:
@@ -14,6 +24,7 @@ services:
       - 8000
     depends_on:
       - db
+
   nginx:
     build: ./nginx
     volumes:
