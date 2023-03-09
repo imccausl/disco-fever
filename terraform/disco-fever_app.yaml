@@ -1,0 +1,35 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MIT
+
+#cloud-config
+groups:
+  - ubuntu: [root, sys]
+  - hashicorp
+
+# Add users to the system. Users are added after groups are added.
+users:
+  - default
+  - name: terraform
+    gecos: terraform
+    shell: /bin/bash
+    primary_group: hashicorp
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    lock_passwd: false
+    ssh_authorized_keys:
+      -  # Paste your created SSH key here
+
+runcmd:
+  - sudo apt-get update
+  - sudo apt install -y git \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+  - sudo mkdir -m 0755 -p /etc/apt/keyrings
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+  - echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  - sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  - git clone git@github.com:imccausl/disco-fever.git
