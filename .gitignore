@@ -3,3 +3,10 @@ venv
 
 __pycache__
 /staticfiles
+
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
