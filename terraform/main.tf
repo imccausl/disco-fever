@@ -7,12 +7,23 @@ terraform {
   }
 }
 
-provider "digitalocean" {}
+variable "do_token" {}
+
+provider "digitalocean" {
+  token = var.do_token
+}
+
+data "digitalocean_ssh_key" "disco-fever" {
+  name = "disco-fever"
+}
 
 resource "digitalocean_droplet" "disco-fever" {
-  image     = "ubuntu-22-04-x64"
-  name      = "disco-fever"
-  region    = "tor1"
-  size      = "s-1vcpu-1gb"
+  image  = "ubuntu-22-04-x64"
+  name   = "disco-fever"
+  region = "tor1"
+  size   = "s-1vcpu-1gb"
+  ssh_keys = [
+    data.digitalocean_ssh_key.disco-fever.id
+  ]
   user_data = file("disco-fever_app.yaml")
 }
