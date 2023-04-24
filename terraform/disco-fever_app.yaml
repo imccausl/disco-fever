@@ -1,4 +1,9 @@
 #cloud-config
+users:
+  - name: app
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    groups: sudo, docker
+
 packages:
   - git
   - ca-certificates
@@ -14,4 +19,6 @@ runcmd:
   - sudo apt-get update
   - sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
   - curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-  - cd && git clone https://github.com/imccausl/disco-fever.git
+  - git clone https://github.com/imccausl/disco-fever.git /home/app/disco-fever
+  - cd /home/app/disco-fever
+  - docker compose -f ./config/docker-compose.yml up
