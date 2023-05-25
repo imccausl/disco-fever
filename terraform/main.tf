@@ -27,3 +27,8 @@ resource "digitalocean_droplet" "disco-fever" {
   ]
   user_data = file("disco-fever_app.yaml")
 }
+
+resource "digitalocean_domain" "disco-fever" {
+  name       = "app.discofever.net"
+  ip_address = digitalocean_droplet.disco-fever.ipv4_address
+}
