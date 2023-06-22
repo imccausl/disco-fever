@@ -20,5 +20,7 @@ from django.urls import path, include, re_path
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("main.urls")),
-    path("", include("django.contrib.auth.urls")),
+
+    # TODO: commented out because /login was being overwritten
+    # path("", include("django.contrib.auth.urls")),
 ]

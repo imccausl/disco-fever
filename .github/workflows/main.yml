@@ -57,7 +57,7 @@ jobs:
           ARGS: -avz
           REMOTE_HOST: ${{ secrets.HOST_IP }}
           REMOTE_USER: root
-          TARGET: /root/disco-app/disco-fever/
+          TARGET: /home/app/disco-fever/
           EXCLUDE: .git/
 
       - name: Build and Restart Server
@@ -67,5 +67,5 @@ jobs:
           username: root
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
           command: |
-            cd /root/disco-app/disco-fever
+            cd /home/app/disco-fever
             ./config/scripts/deploy.sh
