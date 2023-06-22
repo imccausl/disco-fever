@@ -1,13 +1,12 @@
-FROM node:17
+FROM node:18
 
-WORKDIR /usr/src/app
 
 EXPOSE 3000
 
-COPY ./my-app .
+
 
 WORKDIR /usr/src/app/my-app
 
 
-RUN yarn install
+RUN yarn install --force
 CMD ['yarn', 'dev']
